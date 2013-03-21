@@ -79,9 +79,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="AppIcon.ico" />
-    <None Include="FSXMapperHDServer.ico" />
+    <None Include="icon1.ico" />
     <None Include="ReadMe.txt" />
-    <None Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FSInfoServer.h" />

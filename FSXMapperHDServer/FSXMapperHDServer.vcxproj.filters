@@ -16,13 +16,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
-    <None Include="small.ico">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="FSXMapperHDServer.ico">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="AppIcon.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="icon1.ico">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

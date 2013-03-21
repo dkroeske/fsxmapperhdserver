@@ -29,7 +29,7 @@
 #include "FSInfoServer.h"
 
 #define DEFAULT_BUFLEN 512
-#define DEFAULT_PORT "5555"
+//#define DEFAULT_PORT "24042"
 
 // local prototyping
 void constructGPSjsonString(char *buf, int bufSize);
@@ -213,6 +213,24 @@ void constructAircraftEnvironmentjsonString(char *buf, int bufSize)
 	Log(LOG_DATA,buf);
 }
 
+/*****************************************************************************/
+void constructServerInfo(char *buf, int bufSize)
+/*
+ *
+ */
+{	
+	sprintf_s(buf, bufSize,"{\n\r"
+	"\"id\":\"fsxinfo\","
+	"\"serverinfo\":{\n\r"
+	"\"serverVersion\":\"%s\",\n\r"
+	"}\n\r"
+	"}\n\r",
+	VERSION_INFO
+	);
+
+	Log(LOG_DATA,buf);
+}
+
 
 /*****************************************************************************/
 RETVAL_ENUM dispatch(char *cmd, SOCKET socket)
@@ -230,20 +248,20 @@ RETVAL_ENUM dispatch(char *cmd, SOCKET socket)
 	// Handle hi?
 	if( strcmp(cmd, "hi?")  == 0 )
 	{
-		sprintf_s(sendbuf, sizeof(sendbuf),"{\n\r"
-		"\"id\":\"fsxinfo\","
-		"\"serverinfo\":{\n\r"
-		"\"serverVersion\":\"%s\",\n\r"
-		"}\n\r"
-		"}\n\r",
-		"VERSION: 0.8 (05JAN2012)"
-		);
+		//sprintf_s(sendbuf, sizeof(sendbuf),"{\n\r"
+		//"\"id\":\"fsxinfo\","
+		//"\"serverinfo\":{\n\r"
+		//"\"serverVersion\":\"%s\",\n\r"
+		//"}\n\r"
+		//"}\n\r",
+		//VERSION_INFO
+		//);
+		constructServerInfo(sendbuf, sizeof(sendbuf));
 		iSendResult = send(socket, sendbuf, strlen(sendbuf), 0 );
 		if( iSendResult == SOCKET_ERROR )
 		{
 			retval = NOK;
 		}
-		//printf("\nhi?");
 	} 
 
 	// Handle gps
@@ -251,13 +269,11 @@ RETVAL_ENUM dispatch(char *cmd, SOCKET socket)
 		strcmp(cmd, "g?")  == 0  )
 	{
 		constructGPSjsonString(sendbuf, sizeof(sendbuf));
-		//Sleep(500); // simulate slow connection
 		iSendResult = send(socket, sendbuf, strlen(sendbuf), 0 );
 		if( iSendResult == SOCKET_ERROR )
 		{
 			retval = NOK;
 		}
-		//printf("\ngps?");
 	}
 
 	// Handle status
@@ -265,13 +281,11 @@ RETVAL_ENUM dispatch(char *cmd, SOCKET socket)
 		strcmp(cmd, "s?")  == 0  )
 	{
 		constructStatusjsonString(sendbuf, sizeof(sendbuf));
-		//Sleep(500); // simulate slow connection
 		iSendResult = send( socket, sendbuf, strlen(sendbuf), 0 );
 		if( iSendResult == SOCKET_ERROR )
 		{
 			retval = NOK;
 		}
-		//printf("\nstatus?");
 	}  
 
 	// Handle aircraftStringData
@@ -279,13 +293,11 @@ RETVAL_ENUM dispatch(char *cmd, SOCKET socket)
 		strcmp(cmd, "asd?")  == 0  )
 	{
 		constructAircraftStringDatajsonString(sendbuf, sizeof(sendbuf));
-		//Sleep(500); // simulate slow connection
 		iSendResult = send( socket, sendbuf, strlen(sendbuf), 0 );
 		if( iSendResult == SOCKET_ERROR )
 		{
 			retval = NOK;
 		}
-		//printf("\naircraftStringData");
 	} 
 
 	// Handle position and speed data
@@ -293,13 +305,11 @@ RETVAL_ENUM dispatch(char *cmd, SOCKET socket)
 		strcmp(cmd, "apas?")  == 0  )
 	{
 		constructAircraftPosAndSpeedjsonString(sendbuf, sizeof(sendbuf));
-		//Sleep(500); // simulate slow connection
 		iSendResult = send( socket, sendbuf, strlen(sendbuf), 0 );
 		if( iSendResult == SOCKET_ERROR )
 		{
 			retval = NOK;
 		}
-		//printf("\aircraftPosAndSpeed");
 	}
 
 	// Handle flight instrumentation
@@ -333,8 +343,6 @@ RETVAL_ENUM dispatch(char *cmd, SOCKET socket)
 		// Split strings op ':'
 		strValue = strtok_s(cmd,":",&nextToken);  // strValue = "set" of "s"
 		strValue = strtok_s(NULL,":",&nextToken); // strValue = numerical value;
-
-		//printf("\nset: %s",strValue);
 	} 
 
 	return retval;
@@ -464,7 +472,9 @@ void setupServerSocket(int portNumber)
     // Resolve the server address and port
     if(OK == retval)
 	{
-		iResult = getaddrinfo(NULL, DEFAULT_PORT, &hints, &result);
+		char strPortNumber[10];
+		_itoa_s(portNumber,strPortNumber, 10);
+		iResult = getaddrinfo(NULL, strPortNumber, &hints, &result);
 		if ( iResult != 0 )
 		{
 			// Cleanup
@@ -574,7 +584,7 @@ void setupServerSocket(int portNumber)
 			
 			// Inform user
 			char *str = inet_ntoa(address.sin_addr);
-			wsprintf(logText, _T("iPad connecting with IP = %s"), str);
+			wsprintf(logText, _T("iOS device with IP = %s is connected!"), str);
 			Log(LOG_INFO,logText);
 		}
     }

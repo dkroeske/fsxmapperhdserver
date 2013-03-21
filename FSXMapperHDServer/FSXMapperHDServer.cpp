@@ -24,7 +24,6 @@
 #include "fsxinfo.h"		// FSX data definition
 #include "logger.h"
 
-
 int quit = 0;
 HANDLE hSimConnect = NULL;
 
@@ -396,7 +395,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			HWND hEdit;
 
 			hEdit = CreateWindowEx(WS_EX_CLIENTEDGE, "EDIT", "", 
-				WS_CHILD | WS_VISIBLE | WS_VSCROLL | WS_HSCROLL | ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL, 
+				WS_CHILD | WS_VISIBLE | WS_VSCROLL | WS_HSCROLL | ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL , 
 				0, 0, 100, 100, hwnd, (HMENU)IDC_MAIN_EDIT, GetModuleHandle(NULL), NULL);
 			if(hEdit == NULL)
 				MessageBox(hwnd, "Could not create edit box.", "Error", MB_OK | MB_ICONERROR);
@@ -416,6 +415,34 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			SetWindowPos(hEdit, NULL, 0, 0, rcClient.right, rcClient.bottom, SWP_NOZORDER);
 		}
 		break;
+		
+		case WM_COMMAND:
+		{
+			switch (LOWORD(wParam))
+			{
+				case IDM_SHOWALLDATA:
+					
+					// Toggle verbose mode
+					LoggerToggleVerboseMode();
+
+					// Update menu
+					HMENU menuItem = GetMenu(hwnd);
+					LOGVERBOSEMODE_ENUM lvm = LoggerGetCurrentVerboseMode();
+					if( LOG_VERBOSE_ON == lvm )
+					{
+						CheckMenuItem(menuItem, IDM_SHOWALLDATA, MF_CHECKED);
+					}
+					else
+					{
+						CheckMenuItem(menuItem, IDM_SHOWALLDATA, MF_UNCHECKED);
+					}
+
+					//PostMessage(hwnd, WM_CLOSE, 0, 0);
+				break;
+			}
+		}
+		break;
+
 		case WM_CLOSE:
 			DestroyWindow(hwnd);
 		break;
@@ -444,9 +471,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	wc.hIcon		 = LoadIcon(NULL, IDI_APPLICATION);
 	wc.hCursor		 = LoadCursor(NULL, IDC_ARROW);
 	wc.hbrBackground = (HBRUSH)(COLOR_WINDOW+1);
-	wc.lpszMenuName  = NULL;
+//	wc.lpszMenuName  = NULL;
+	wc.lpszMenuName  = MAKEINTRESOURCE(IDC_FSXMAPPERHDSERVER);
+//	wc.lpszMenuName  = MAKEINTRESOURCE(IDR_MENU1);
 	wc.lpszClassName = g_szClassName;
-	wc.hIconSm		 = LoadIcon(NULL, IDI_APPLICATION);
+//	wc.hIconSm		 = LoadIcon(NULL, IDI_APPLICATION);
+	wc.hIconSm		 = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1));
 
 	if(!RegisterClassEx(&wc))
 	{
@@ -477,7 +507,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	HWND hEdit;
 	hEdit = GetDlgItem(hwnd, IDC_MAIN_EDIT);
 	LoggerInit(hEdit);
-	Log(LOG_INFO,"FSX MapperHD Server says welcome.\r\n\t\"Any landing you can walk away from is a good one!\"");
+	Log(LOG_INFO,"FSX MapperHD Server says welcome.\r\n\tCheck http://www.d68.nl/fsxmapperhd for more info.\r\n\r\n\t\"Any landing you can walk away from is a good one!\"\r\n");
 
 	//Init the fsx info module
 	fxsInfoInitialize();
@@ -486,14 +516,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		// Spinoff the thread that gets fsx data
 		DWORD nSimConnectThreadID;
 		CreateThread(0, 0, setupSimConnect, NULL, 0, &nSimConnectThreadID);
-		Log(LOG_INFO,"FSX Connect is responding, OK");
+		Log(LOG_INFO,"FSX Connect is responding, This is OK");
 
 		//// Setup server. This call is blocking and spins of multiple connections
 		DWORD nSocketServerThreadID;
-		int portNr = 5555;
+		int portNr = DEFAULT_PORTNUMBER;
 		CreateThread(0, 0, setupServerSocketThread, &portNr, 0, &nSocketServerThreadID);
-
-		//setupServerSocket(portNr);
 	}
 	else
 	{

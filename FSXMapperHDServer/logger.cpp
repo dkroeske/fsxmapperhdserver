@@ -5,12 +5,36 @@
 #include <tchar.h>
 
 HWND tbLogger = NULL;
+LOGVERBOSEMODE_ENUM verboseMode = LOG_VERBOSE_OFF;
 
 void appendLogText(LPCTSTR newText);
 
 void LoggerInit(HWND tbDestination)
 {
 	tbLogger = tbDestination;
+	verboseMode = LOG_VERBOSE_OFF;
+}
+
+void LoggerToggleVerboseMode()
+{
+	if( LOG_VERBOSE_OFF == verboseMode )
+	{
+		LoggerVerboseMode(LOG_VERBOSE_ON);
+	}
+	else
+	{
+		LoggerVerboseMode(LOG_VERBOSE_OFF);
+	}
+}
+
+void LoggerVerboseMode(LOGVERBOSEMODE_ENUM mode)
+{
+	verboseMode = mode;
+}
+
+LOGVERBOSEMODE_ENUM LoggerGetCurrentVerboseMode(void)
+{
+	return verboseMode;
 }
 
 void Log(LOGINFO_ENUM level, LPCTSTR text)
@@ -29,7 +53,10 @@ void Log(LOGINFO_ENUM level, LPCTSTR text)
 			wsprintf(logText,_T("<status>\t%s\r\n"), text);
 			break;
 		case LOG_DATA:
-			wsprintf(logText,_T("<data:>\t%s\r\n"), text);
+			if( LOG_VERBOSE_ON == verboseMode )
+			{
+				wsprintf(logText,_T("<data:>\t%s\r\n"), text);
+			}
 			break;
 		default:
 			wsprintf(logText,_T("<???>\t%s\r\n"), text);

@@ -1,4 +1,4 @@
-﻿Build started 3/13/2013 11:36:47 PM.
+﻿Build started 3/21/2013 10:48:41 PM.
      1>Project "C:\Work\flightsim\FSXMapperHDServer\FSXMapperHDServer\FSXMapperHDServer.vcxproj" on node 2 (clean target(s)).
      1>_PrepareForClean:
          Deleting file "Debug\FSXMapperHDServer.lastbuildstate".
@@ -6,4 +6,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.02
+Time Elapsed 00:00:00.28

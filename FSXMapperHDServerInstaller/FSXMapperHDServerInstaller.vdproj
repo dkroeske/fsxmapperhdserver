@@ -15,14 +15,26 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_4A2C81B70269404B81416FEAFDA1DDFD"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_698B52DA142444848B842BCF8E7EFE86"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_E19065A8341A4C3692034CA3B0D59E6F"
+        "MsmKey" = "8:_70A95B4881184EA1B21D6DD1B41D3718"
         "OwnerKey" = "8:_698B52DA142444848B842BCF8E7EFE86"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A9CCA2C8E24A4B92B6DA41CB8A923A39"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -43,6 +55,27 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -59,6 +92,27 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -80,6 +134,46 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4A2C81B70269404B81416FEAFDA1DDFD"
+            {
+            "SourcePath" = "8:..\\FSXMapperHDServer\\AppIcon.ico"
+            "TargetName" = "8:AppIcon.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_F185E8B02028493FB7762E7A34990A8B"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A9CCA2C8E24A4B92B6DA41CB8A923A39"
+            {
+            "SourcePath" = "8:banner-500x70.jpg"
+            "TargetName" = "8:banner-500x70.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_F185E8B02028493FB7762E7A34990A8B"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -136,24 +230,24 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:FSXMapperHDServerInstaller"
-        "ProductCode" = "8:{14BAB99A-0882-4671-AA1E-D7EB02910165}"
-        "PackageCode" = "8:{D5BDBFFE-B691-4396-8457-609D97D6060C}"
+        "ProductCode" = "8:{E44A4FE2-D229-4E4A-9BD2-6E8328E968B0}"
+        "PackageCode" = "8:{9816A140-F2F9-48E3-822A-9EA38F01AEA4}"
         "UpgradeCode" = "8:{1197DC02-48E7-4F24-A7DF-44B3BD36F12E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:Default Company Name"
+        "ProductVersion" = "8:0.9"
+        "Manufacturer" = "8:AppsFormHolland"
         "ARPHELPTELEPHONE" = "8:"
-        "ARPHELPLINK" = "8:"
-        "Title" = "8:FSXMapperHDServerInstaller"
+        "ARPHELPLINK" = "8:http://www.d68.nl/fsxmapperhd"
+        "Title" = "8:FSXMapperHDServer"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:Default Company Name"
+        "ARPCONTACT" = "8:Diederich Kroeske (dkroeske@d68.nl)"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:"
-        "ARPURLINFOABOUT" = "8:"
+        "ARPCOMMENTS" = "8:FSX Information Server. Sourcecode available."
+        "ARPURLINFOABOUT" = "8:http://www.d68.nl/fsxmapperhd"
         "ARPPRODUCTICON" = "8:"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
@@ -257,7 +351,21 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_9C17C4E02D2B49A2BCD9E845D2D42D07"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_1EA96E312ACE4966812A1274C297F8B5"
+            {
+            "Name" = "8:FSXMapperHDServer"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_698B52DA142444848B842BCF8E7EFE86"
+            "Folder" = "8:_CD7F995A489C40D0A84833BBBD62FF28"
+            "WorkingFolder" = "8:_F185E8B02028493FB7762E7A34990A8B"
+            "Icon" = "8:_4A2C81B70269404B81416FEAFDA1DDFD"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_25D0A37D271042618108967ED80B3BA0"
             {
             "Name" = "8:FSXMapperHDServer"
             "Arguments" = "8:"
@@ -268,7 +376,7 @@
             "Target" = "8:_698B52DA142444848B842BCF8E7EFE86"
             "Folder" = "8:_A7AACCC925B04A72AF8BD29697680108"
             "WorkingFolder" = "8:_F185E8B02028493FB7762E7A34990A8B"
-            "Icon" = "8:"
+            "Icon" = "8:_4A2C81B70269404B81416FEAFDA1DDFD"
             "Feature" = "8:"
             }
         }
@@ -298,7 +406,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_A9CCA2C8E24A4B92B6DA41CB8A923A39"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "UpdateText"
@@ -342,7 +451,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_A9CCA2C8E24A4B92B6DA41CB8A923A39"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "ShowProgress"
@@ -386,7 +496,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_A9CCA2C8E24A4B92B6DA41CB8A923A39"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "InstallAllUsersVisible"
@@ -421,7 +532,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_A9CCA2C8E24A4B92B6DA41CB8A923A39"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "Serial"
@@ -482,7 +594,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_A9CCA2C8E24A4B92B6DA41CB8A923A39"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -504,7 +617,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_A9CCA2C8E24A4B92B6DA41CB8A923A39"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -515,8 +629,8 @@
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1202"
+                            "Setting" = "3:2"
+                            "Value" = "8:This software is NOT copyrighted. You can find all the sourcecode at github."
                             "DefaultValue" = "8:#1202"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -648,7 +762,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -659,8 +773,8 @@
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1202"
+                            "Setting" = "3:2"
+                            "Value" = "8:This software is NOT copyrighted. You can find all the sourcecode at github."
                             "DefaultValue" = "8:#1202"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -728,7 +842,7 @@
         }
         "MergeModule"
         {
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_E19065A8341A4C3692034CA3B0D59E6F"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_70A95B4881184EA1B21D6DD1B41D3718"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"

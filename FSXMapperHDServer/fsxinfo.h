@@ -1,6 +1,9 @@
 #ifndef FSXINFO_INCLUDE
 #define FSXINFO_INCLUDE
 
+#define VERSION_INFO	"VERSION: 0.9 (MARCH 2013)"
+#define DEFAULT_PORTNUMBER	8100
+
 // FSX GPS information
 typedef struct
 {
