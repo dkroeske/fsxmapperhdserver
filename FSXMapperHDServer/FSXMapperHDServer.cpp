@@ -24,9 +24,7 @@
 #include "fsxinfo.h"		// FSX data definition
 #include "logger.h"
 
-int quit = 0;
-HANDLE hSimConnect = NULL;
-
+// typedefs
 static enum EVENT_ID {
 	EVENT_SIM_START,
 	EVENT_SIM_STOP,
@@ -50,10 +48,21 @@ static enum DATA_REQUEST_ID {
 	REQUEST_AIRCRAFT_ENVIRONMENT_DATA,
 };
 
+enum SIMCONNECTSTATUS_ENUM {
+	IS_DISCONNECTED = 0,
+	IS_AVAILABLE,
+	IS_CONNECTED,
+};
+
+// global var's
 struct StructVS
 {
     char strings[1];
 };
+
+int quit = 0;
+HANDLE hSimConnect = NULL;
+enum SIMCONNECTSTATUS_ENUM simconnectStatus = IS_DISCONNECTED;
 
 void CALLBACK MyDispatchProcRD(SIMCONNECT_RECV* pData, DWORD cbData, void *pContext)
 {
@@ -437,7 +446,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 						CheckMenuItem(menuItem, IDM_SHOWALLDATA, MF_UNCHECKED);
 					}
 
-					//PostMessage(hwnd, WM_CLOSE, 0, 0);
 				break;
 			}
 		}
@@ -511,25 +519,71 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	//Init the fsx info module
 	fxsInfoInitialize();
-	if( OK == testSimConnectAndClose() )
-	{
-		// Spinoff the thread that gets fsx data
-		DWORD nSimConnectThreadID;
-		CreateThread(0, 0, setupSimConnect, NULL, 0, &nSimConnectThreadID);
-		Log(LOG_INFO,"FSX Connect is responding, This is OK");
 
-		//// Setup server. This call is blocking and spins of multiple connections
-		DWORD nSocketServerThreadID;
-		int portNr = DEFAULT_PORTNUMBER;
-		CreateThread(0, 0, setupServerSocketThread, &portNr, 0, &nSocketServerThreadID);
+
+	//if( OK == testSimConnectAndClose() )
+	//{
+	//	// Spinoff the thread that gets fsx data
+	//	DWORD nSimConnectThreadID;
+	//	CreateThread(0, 0, setupSimConnect, NULL, 0, &nSimConnectThreadID);
+	//	Log(LOG_INFO,"FSX Connect is responding, This is OK");
+
+	//	//// Setup server. This call is blocking and spins of multiple connections
+	//	DWORD nSocketServerThreadID;
+	//	int portNr = DEFAULT_PORTNUMBER;
+	//	CreateThread(0, 0, setupServerSocketThread, &portNr, 0, &nSocketServerThreadID);
+	//}
+	//else
+	//{
+	//	Log(LOG_ERR,"Can not connect to FSX!!. Is your flightsim running?");
+	//}
+
+	//while(GetMessage(&Msg, NULL, 0, 0) > 0)
+	//{
+	//	TranslateMessage(&Msg);
+	//	DispatchMessage(&Msg);
+	//}
+	
+	//// Setup server. This call is blocking and spins of multiple connections
+	DWORD nSocketServerThreadID;
+	int portNr = DEFAULT_PORTNUMBER;
+	CreateThread(0, 0, setupServerSocketThread, &portNr, 0, &nSocketServerThreadID);
+	
+	if( testSimConnectAndClose() == OK )
+	{
+		simconnectStatus = IS_AVAILABLE;
 	}
 	else
 	{
 		Log(LOG_ERR,"Can not connect to FSX!!. Is your flightsim running?");
+		simconnectStatus = IS_DISCONNECTED;
 	}
 
 	while(GetMessage(&Msg, NULL, 0, 0) > 0)
 	{
+		switch(simconnectStatus)
+		{
+			// Not connected, test for connection
+			case IS_DISCONNECTED:
+				if( testSimConnectAndClose() == OK )
+				{
+					simconnectStatus = IS_AVAILABLE;
+				}
+				break;
+			
+			// Simconnect is available -> connect.
+			case IS_AVAILABLE:
+				DWORD nSimConnectThreadID;
+				CreateThread(0, 0, setupSimConnect, NULL, 0, &nSimConnectThreadID);
+				Log(LOG_INFO,"FSX Connect is responding, This is OK");
+				simconnectStatus = IS_CONNECTED;
+				break;
+			
+			// Is connected, idle;
+			case IS_CONNECTED:
+				break;
+		}
+		
 		TranslateMessage(&Msg);
 		DispatchMessage(&Msg);
 	}

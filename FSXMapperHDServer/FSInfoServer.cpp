@@ -336,7 +336,7 @@ RETVAL_ENUM dispatch(char *cmd, SOCKET socket)
 		}
 	}  
   
-	// Handle set
+	// Handle set (not used)
 	if( strncmp(cmd, "set:", strlen("set:"))  == 0 ||
 		strncmp(cmd, "s:", strlen("s:"))  == 0  )
 	{

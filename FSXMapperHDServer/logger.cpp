@@ -45,24 +45,28 @@ void Log(LOGINFO_ENUM level, LPCTSTR text)
 	{
 		case LOG_ERR:
 			wsprintf(logText,_T("<error>\t%s\r\n"), text);
+			appendLogText(logText);
 			break;
 		case LOG_INFO:
 			wsprintf(logText,_T("<info>\t%s\r\n"), text);
+			appendLogText(logText);
 			break;
 		case LOG_SIMSTATUS:
 			wsprintf(logText,_T("<status>\t%s\r\n"), text);
+			appendLogText(logText);
 			break;
 		case LOG_DATA:
 			if( LOG_VERBOSE_ON == verboseMode )
 			{
 				wsprintf(logText,_T("<data:>\t%s\r\n"), text);
+				appendLogText(logText);
 			}
 			break;
 		default:
 			wsprintf(logText,_T("<???>\t%s\r\n"), text);
+			appendLogText(logText);
 			break;
 	}
-	appendLogText(logText);
 }
 
 // Append text to info already in the editbox.
